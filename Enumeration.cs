@@ -53,7 +53,7 @@ namespace FamilyThings
         }
 
         public int CompareTo(object other) => Id.CompareTo(((Enumeration)other).Id);
-
+        public bool Match(object other) => Id.Equals(other);
         // Other utility methods ...
     }
 }

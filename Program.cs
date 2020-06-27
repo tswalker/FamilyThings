@@ -51,7 +51,11 @@ namespace FamilyThings
             {
                 if (ColorTypeEnum.Blue.Symbol.Equals(child.ColorType.Symbol))
                 {
-                    Console.WriteLine(child.Name + " likes the color " + ColorTypeEnum.Blue.Name);
+                    Console.Write(child.Name + " likes the color " + ColorTypeEnum.Blue.Name);
+                }
+                if (ColorTypeEnum.Blue.Match(child.ColorType.Id))
+                {
+                    Console.WriteLine("; Blue Magic...");
                 }
             }
 
