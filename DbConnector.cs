@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace FamilyThings.Database
 {
-    class SampleDb
+    class DbConnector
     {
         SqlConnectionStringBuilder _connectionString;
         SqlConnection _connection;
 
-        public SampleDb()
+        public DbConnector()
         {
             _connectionString = new SqlConnectionStringBuilder()
             {
