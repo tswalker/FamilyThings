@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SampleDb.DbContext
+namespace FamilyThings.DbContext
 {
 	using System.Data.Linq;
 	using System.Data.Linq.Mapping;
