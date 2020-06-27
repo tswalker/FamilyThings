@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace FamilyThings
 {
     public class ColorTypeEnum : Enumeration
@@ -15,5 +10,13 @@ namespace FamilyThings
 
         private ColorTypeEnum() { }
         private ColorTypeEnum(int id, string name, string symbol) : base(id, name, symbol) { }
+
+        public enum ColorEnum
+        {
+            Red = 1,
+            Yellow = 2,
+            Blue = 3,
+            Green = 4
+        }
     }
 }
