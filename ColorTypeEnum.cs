@@ -11,6 +11,7 @@ namespace FamilyThings
         private ColorTypeEnum() { }
         private ColorTypeEnum(int id, string name, string symbol) : base(id, name, symbol) { }
 
+        //can you identify the problem with this?
         public enum ColorEnum
         {
             Red = 1,
