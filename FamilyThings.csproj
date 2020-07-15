@@ -47,16 +47,29 @@
     <Compile Include="ColorTypeEnum.cs" />
     <Compile Include="DbContext.cs" />
     <Compile Include="Enumeration.cs" />
+    <Compile Include="ModelThing.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DbConnector.cs" />
+    <Compile Include="sqlRepo.cs" />
+    <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="MSIL\complete-MSIL.txt" />
+    <Content Include="MSIL\long-msil.txt" />
+    <Content Include="MSIL\short-msil.txt" />
     <Content Include="Scripts\SampleDb.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FamilyLibrary\FamilyLibrary.csproj">
+      <Project>{a8a23334-3e91-45b6-bb30-c40d775de63d}</Project>
+      <Name>FamilyLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
