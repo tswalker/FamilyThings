@@ -1,19 +1,26 @@
 ﻿using System;
 using System.Linq;
-using FamilyThings.Database;
-using FamilyThings.DbContext;
+using FamilyThings.Enumerations;
+using FamilyThings.Interfaces;
 
-namespace FamilyThings
+
+#if DEBUG
+using DataModel = FamilyThings.DbContext.Local;
+#elif RELEASE
+using DataModel = FamilyThings.DbContext.Local;
+#endif
+
+namespace FamilyThings.Repository
 {
-    class sqlRepo
+    class sqlRepo : DbRepository
     {
+        public sqlRepo(IDataContext context, IDbConnector connector) : base(context,connector) { }
+
         public void CheckParents()
         {
-            DbConnector db = new DbConnector();
-            SampleDb context = new SampleDb(db.GetSqlConn());
-            var parents = context.GetTable<ParentContainer>();
-            var children = context.GetTable<ChildContainer>();
-            var colors = context.GetTable<ColorType>();
+            var parents = Context.GetTable<DataModel.ParentContainer>();
+            var children = Context.GetTable<DataModel.ChildContainer>();
+            var colors = Context.GetTable<DataModel.ColorType>();
 
             // iterate through parents' children via LUT(cross-reference table)
             foreach (var parent in parents)
@@ -60,7 +67,7 @@ namespace FamilyThings
             Console.WriteLine("Find all children that like the color Blue:");
             foreach (var child in children)
             {
-                //switching (casting smells funny)
+                //switching(casting smells funny)
                 switch (child.ColorTypeId)
                 {
                     case (int)ColorTypeEnum.ColorEnum.Red:
@@ -88,7 +95,7 @@ namespace FamilyThings
                 }
 
                 //record Id matching (use NULL check on record)
-                if (ColorTypeEnum.Blue.Match(child.ColorType?.Id))
+                if (ColorTypeEnum.Blue.Matches(child.ColorType?.Id))
                 {
                     Console.WriteLine(" Blue Magic...!");
                 }

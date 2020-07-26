@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace FamilyThings
+namespace FamilyThings.Enumerations
 {
     public abstract class Enumeration : IComparable
     {
@@ -50,7 +50,7 @@ namespace FamilyThings
         }
 
         public int CompareTo(object other) => Id.CompareTo(((Enumeration)other).Id);
-        public bool Match(object other) => Id.Equals(other);
+        public bool Matches(object other) => Id.Equals(other);
         // Other utility methods ...
     }
 }

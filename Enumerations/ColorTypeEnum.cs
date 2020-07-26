@@ -1,5 +1,5 @@
 ﻿
-namespace FamilyThings
+namespace FamilyThings.Enumerations
 {
     public class ColorTypeEnum : Enumeration
     {

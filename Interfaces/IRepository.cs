@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FamilyThings
+namespace FamilyThings.Interfaces
 {
-    public class ModelThing
+    public interface IRepository
     {
-        public int Id;
-        public string Description;
+        IDbConnector Connector { get; }
     }
 }
