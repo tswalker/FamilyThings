@@ -619,6 +619,8 @@ namespace FamilyThings.DbContext.Local
 		
 		private string _Name;
 		
+		private System.Data.Linq.Binary _Rowversion;
+		
 		private EntitySet<ParentChildLinkage> _ParentChildLinkage;
 		
     #region Extensibility Method Definitions
@@ -629,6 +631,8 @@ namespace FamilyThings.DbContext.Local
     partial void OnIdChanged();
     partial void OnNameChanging(string value);
     partial void OnNameChanged();
+    partial void OnRowversionChanging(System.Data.Linq.Binary value);
+    partial void OnRowversionChanged();
     #endregion
 		
 		public ParentContainer()
@@ -637,7 +641,7 @@ namespace FamilyThings.DbContext.Local
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
 		public int Id
 		{
 			get
@@ -657,7 +661,7 @@ namespace FamilyThings.DbContext.Local
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(128)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(128)", UpdateCheck=UpdateCheck.Never)]
 		public string Name
 		{
 			get
@@ -673,6 +677,26 @@ namespace FamilyThings.DbContext.Local
 					this._Name = value;
 					this.SendPropertyChanged("Name");
 					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="rowversion", Storage="_Rowversion", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		public System.Data.Linq.Binary Rowversion
+		{
+			get
+			{
+				return this._Rowversion;
+			}
+			set
+			{
+				if ((this._Rowversion != value))
+				{
+					this.OnRowversionChanging(value);
+					this.SendPropertyChanging();
+					this._Rowversion = value;
+					this.SendPropertyChanged("Rowversion");
+					this.OnRowversionChanged();
 				}
 			}
 		}

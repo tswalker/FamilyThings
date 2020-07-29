@@ -9,7 +9,10 @@ namespace FamilyThings
         static void Main(string[] args)
         {
             var repo = RepositoryFactory.GetRepository(typeof(sqlRepo)) as sqlRepo;
-            repo.CheckParents();
+            //repo.CheckParents();
+            var record = repo.GetParent(1);
+            record.Name = "Johnny";
+            repo.UpdateParent(record);
         }
     }
 }

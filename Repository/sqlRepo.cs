@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Data.Linq;
+using System.Data.Linq.Mapping;
 using System.Linq;
+using System.Reflection;
+using FamilyThings.DbContext.Local;
 using FamilyThings.Enumerations;
 using FamilyThings.Interfaces;
 
@@ -14,7 +18,7 @@ namespace FamilyThings.Repository
 {
     class sqlRepo : DbRepository
     {
-        public sqlRepo(IDataContext context, IDbConnector connector) : base(context,connector) { }
+        public sqlRepo(IDataContext context, IDbConnector connector) : base(context, connector) { }
 
         public void CheckParents()
         {
@@ -103,6 +107,40 @@ namespace FamilyThings.Repository
 
             Console.WriteLine("Press any key...");
             Console.ReadLine();
+        }
+
+        public DataModel.ParentContainer GetParent(int id)
+        {
+            var parents = Context.GetTable<ParentContainer>();
+            var record = parents.Where(x => x.Id.Equals(id)).FirstOrDefault();
+            return record;
+        }
+
+        public void UpdateParent(DataModel.ParentContainer parent)
+        {
+            try
+            {
+                var parents = Context.GetTable<ParentContainer>();
+                var record = parents.Where(x => x.Id.Equals(parent.Id)).FirstOrDefault();
+                record = parent;
+                Context.SubmitChanges(ConflictMode.FailOnFirstConflict);
+            }
+            catch (ChangeConflictException e)
+            {
+                foreach(ObjectChangeConflict occ in Context.ChangeConflicts)
+                {
+                    MetaTable metaTable = Context.Mapping.GetTable(occ.Object.GetType());
+                    ParentContainer entityInConflict = (ParentContainer)occ.Object;
+                    foreach(var conflict in occ.MemberConflicts)
+                    {
+                        object currentValue = conflict.CurrentValue;
+                        object originalValue = conflict.OriginalValue;
+                        object databaseValue = conflict.DatabaseValue;
+                        MemberInfo mi = conflict.Member;
+                        Console.WriteLine("Change conflict detected on Member: {0}, Current: {1}, Original: {2}, Database: {3}",mi.Name,currentValue,originalValue,databaseValue);
+                    }
+                }
+            }
         }
     }
 }
